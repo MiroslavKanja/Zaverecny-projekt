@@ -1,3 +1,16 @@
+<?php
+$message = "";
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    $user = $_POST['username'];
+    $pass = $_POST['password'];
+
+    
+    if (!empty($user) && !empty($pass)) {
+        $message = "Dáta prijaté! Používateľ: " . htmlspecialchars($user);
+    }
+}
+?>
+
 <!DOCTYPE html>
 <html lang="sk">
 <head>
@@ -15,7 +28,7 @@
             <nav>
                 <ul>
                     <li><a href="index.php">Domov</a></li>
-                    <li><a href="login.html">Prihlásenie</a></li>
+                    <li><a href="login.php">Prihlásenie</a></li>
                 </ul>
             </nav>
         </div>
@@ -26,6 +39,12 @@
             <div class="login-card">
                 <h2>Prihlásenie</h2>
                 
+                <?php if ($message != ""): ?>
+    <div style="padding: 10px; background: #dcfce7; color: #166534; margin-bottom: 20px; border-radius: 8px;">
+        <?php echo $message; ?>
+    </div>
+<?php endif; ?>
+
                 <form action="#" method="GET">
                     <div class="input-group">
                         <label for="username">Používateľské meno</label>
