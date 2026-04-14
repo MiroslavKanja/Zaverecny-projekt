@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="sk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Prihlásenie | Inventory Manager</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
+</head>
+<body>
+
+    <header>
+        <div class="container">
+            <div class="logo">InvManager</div>
+            <nav>
+                <ul>
+                    <li><a href="index.html">Domov</a></li>
+                    <li><a href="login.html">Prihlásenie</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <main class="container">
+        <div class="login-wrapper">
+            <div class="login-card">
+                <h2>Prihlásenie</h2>
+                
+                <form action="#" method="GET">
+                    <div class="input-group">
+                        <label for="username">Používateľské meno</label>
+                        <input type="text" id="username" name="username" placeholder="Zadajte meno" required>
+                    </div>
+                    
+                    <div class="input-group">
+                        <label for="password">Heslo</label>
+                        <input type="password" id="password" name="password" placeholder="Zadajte heslo" required>
+                    </div>
+                    
+                    <button type="submit" class="login-btn">Vstúpiť do systému</button>
+                </form>
+                
+                <div class="login-footer">
+                    <p>Nemáte účet? <a href="#">Kontaktujte správcu</a></p>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <footer>
+        <div class="container">
+            <p>&copy; 2026 Inventory Management System | UKF Projekt</p>
+        </div>
+    </footer>
+
+</body>
+</html>

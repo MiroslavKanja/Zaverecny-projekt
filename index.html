@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="sk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Inventory Manager | Správa výpožičiek</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
+</head>
+<body>
+
+    <header>
+        <div class="container">
+            <div class="logo">InvManager</div>
+            <nav>
+                <ul>
+                    <li><a href="index.html">Domov</a></li>
+                    <li><a href="login.html">Prihlásenie</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <main class="container">
+        <section class="hero">
+            <h1>Dostupná technika</h1>
+            <p>Prehľad zariadení, ktoré sú momentálne k dispozícii na zapožičanie.</p>
+        </section>
+
+        <div class="grid">
+            <div class="card">
+                <h3>Notebook Lenovo L480</h3>
+                <p class="status available">Dostupné</p>
+                <button class="btn">Požičať si</button>
+            </div>
+            <div class="card">
+                <h3>Projektor Epson EB-X05</h3>
+                <p class="status busy">Vypožičané</p>
+                <button class="btn" disabled>Nedostupné</button>
+            </div>
+            <div class="card">
+                <h3>Grafický tablet Wacom</h3>
+                <p class="status available">Dostupné</p>
+                <button class="btn">Požičať si</button>
+            </div>
+        </div>
+    </main>
+
+    <footer>
+        <div class="container">
+            <p>&copy; 2026 Inventory Management System | UKF Projekt</p>
+        </div>
+    </footer>
+
+</body>
+</html>
