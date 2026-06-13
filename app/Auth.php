@@ -13,12 +13,14 @@ class Auth {
     }
 
     public function login($username, $password) {
-        $stmt = $this->db->prepare("SELECT * FROM users WHERE username = :username LIMIT 1");
-        $stmt->execute(['username' => $username]);
-        $user = $stmt->fetch();
+        $db = Database::getInstance()->getConnection();
 
-        // Overenie hesla
-        if ($user && $password === $user['password']) {
+        $stmt = $db->prepare("SELECT * FROM users WHERE username = :username");
+        $stmt->execute(['username' => $username]);
+        $user = $stmt->fetch(PDO::FETCH_ASSOC);
+
+        // Ak užívateľ existuje, overíme hashované heslo
+        if ($user && password_verify($password, $user['password'])) {
             $_SESSION['user_id'] = $user['id'];
             $_SESSION['username'] = $user['username'];
             $_SESSION['role'] = $user['role'];
