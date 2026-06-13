@@ -21,4 +21,11 @@ class Device {
         // Spustíme dopyt s ošetreným parametrom
         return $stmt->execute(['name' => $name]);
     }
+
+    // Funkcia na vymazanie zariadenia podľa ID
+    public function delete($id) {
+        // Prepared statement zabezpečí, že nám nikto nevstrekne SQL Injection cez ID v URL adrese
+        $stmt = $this->db->prepare("DELETE FROM devices WHERE id = :id");
+        return $stmt->execute(['id' => $id]);
+    }
 }

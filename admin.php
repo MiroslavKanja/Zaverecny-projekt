@@ -76,7 +76,7 @@ $devices = $deviceModel->getAllDevices();
                     </td>
                     <td>
                         <a href="#" class="btn-action edit">Upraviť</a>
-                        <a href="#" class="btn-action delete" onclick="return confirm('Naozaj chcete vymazať toto zariadenie?')">Zmazať</a>
+                        <a href="delete-device.php?id=<?php echo $device['id']; ?>" class="btn-action delete" onclick="return confirm('Naozaj chcete vymazať toto zariadenie?')">Zmazať</a>
                     </td>
                 </tr>
             <?php endforeach; ?>
