@@ -45,7 +45,7 @@ $devices = $deviceModel->getAllDevices();
 <main class="container" style="margin-top: 40px;">
     <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
         <h2>Prehľad a správa zariadení</h2>
-        <a href="#" class="btn" style="text-decoration: none; padding: 10px 20px;">+ Pridať zariadenie</a>
+        <a href="add-device.php" class="btn" style="text-decoration: none; padding: 10px 20px;">+ Pridať zariadenie</a>
     </div>
 
     <table class="admin-table">
