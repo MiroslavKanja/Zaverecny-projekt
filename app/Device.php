@@ -28,4 +28,21 @@ class Device {
         $stmt = $this->db->prepare("DELETE FROM devices WHERE id = :id");
         return $stmt->execute(['id' => $id]);
     }
+
+    // Načítanie jedného konkrétneho zariadenia podľa ID
+    public function getDeviceById($id) {
+        $stmt = $this->db->prepare("SELECT * FROM devices WHERE id = :id LIMIT 1");
+        $stmt->execute(['id' => $id]);
+        return $stmt->fetch();
+    }
+
+    // Aktualizácia názvu a stavu zariadenia v databáze
+    public function update($id, $name, $status) {
+        $stmt = $this->db->prepare("UPDATE devices SET name = :name, status = :status WHERE id = :id");
+        return $stmt->execute([
+            'id' => $id,
+            'name' => $name,
+            'status' => $status
+        ]);
+    }
 }
