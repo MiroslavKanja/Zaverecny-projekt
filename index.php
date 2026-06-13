@@ -1,9 +1,13 @@
 <?php
-// Ručné načítanie našich OOP tried (bez Composera)
+// Spustíme session, ak by sme neskôr chceli zobraziť iné menu pre prihláseného admina
+if (session_status() === PHP_SESSION_NONE) {
+    session_start();
+}
+
 require_once 'app/Database.php';
 require_once 'app/Device.php';
 
-// Inicializácia triedy Device a vytiahnutie techniky z databázy
+// Načítame všetku techniku z databázy cez náš OOP model
 $deviceModel = new Device();
 $devices = $deviceModel->getAllDevices();
 
@@ -17,7 +21,9 @@ include_once 'parts/header.php';
 
     <div class="grid">
         <?php if (empty($devices)): ?>
-            <p>Momentálne sa v systéme nenachádza žiadna technika.</p>
+            <div style="grid-column: 1 / -1; text-align: center; padding: 40px; color: #64748b; font-weight: 600;">
+                Momentálne nie je v systéme evidovaná žiadna technika.
+            </div>
         <?php else: ?>
             <?php foreach ($devices as $device): ?>
                 <div class="card">
