@@ -260,3 +260,42 @@ footer {
 .btn-action.delete:hover {
     background-color: #fca5a5;
 }
+
+/* --- ŠTÝL PRE TLAČIDLÁ V HEADERI --- */
+
+/* Pridá medzeru medzi Domov a tlačidlo */
+nav a + a {
+    margin-left: 20px;
+}
+
+/* Pôvodné modré tlačidlo prihlásenia */
+.header-btn-login {
+    text-decoration: none;
+    color: white !important; /* Vynúti bielu farbu textu */
+    background: #2563eb;
+    padding: 8px 16px;
+    border-radius: 6px;
+    font-weight: 500;
+    transition: background 0.2s ease;
+    display: inline-block;
+}
+
+.header-btn-login:hover {
+    background: #1d4ed8;
+}
+
+/* Červené tlačidlo odhlásenia pre Jožka */
+.header-btn-logout {
+    text-decoration: none;
+    color: #ef4444 !important;
+    background: #fee2e2;
+    padding: 8px 16px;
+    border-radius: 6px;
+    font-weight: 600;
+    transition: background 0.2s ease;
+    display: inline-block;
+}
+
+.header-btn-logout:hover {
+    background: #fca5a5;
+}

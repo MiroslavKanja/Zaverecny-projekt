@@ -9,17 +9,21 @@
 </head>
 <body>
 
-    <header>
-        <div class="container">
-            <div class="logo">InvManager</div>
-            <nav>
-                <ul>
-                    <li><a href="index.php">Domov</a></li>
-                    <li><a href="login.php">Prihlásenie</a></li>
-                </ul>
-            </nav>
-        </div>
-    </header>
+<header>
+    <div class="container">
+        <div class="logo">InvManager</div>
+        <nav>
+            <a href="index.php">Domov</a>
+
+            <?php if (isset($_SESSION['user_id'])): ?>
+                <a href="logout.php" class="header-btn-logout">
+                    Odhlásiť sa (<?php echo htmlspecialchars($_SESSION['username']); ?>)
+                </a>
+            <?php else: ?>
+                <a href="login.php" class="header-btn-login">Prihlásenie</a>
+            <?php endif; ?>
+        </nav>
+    </div>
+</header>
 
     <main class="container">
-        

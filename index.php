@@ -1,5 +1,4 @@
 <?php
-// Spustíme session, ak by sme neskôr chceli zobraziť iné menu pre prihláseného admina
 if (session_status() === PHP_SESSION_NONE) {
     session_start();
 }
@@ -7,7 +6,6 @@ if (session_status() === PHP_SESSION_NONE) {
 require_once 'app/Database.php';
 require_once 'app/Device.php';
 
-// Načítame všetku techniku z databázy cez náš OOP model
 $deviceModel = new Device();
 $devices = $deviceModel->getAllDevices();
 
@@ -22,7 +20,7 @@ include_once 'parts/header.php';
     <div class="grid">
         <?php if (empty($devices)): ?>
             <div style="grid-column: 1 / -1; text-align: center; padding: 40px; color: #64748b; font-weight: 600;">
-                Momentálne nie je v systéme evidovaná žiadna technika.
+                Momentálne nie je v databáze evidovaná žiadna technika.
             </div>
         <?php else: ?>
             <?php foreach ($devices as $device): ?>
@@ -31,7 +29,13 @@ include_once 'parts/header.php';
 
                     <?php if ($device['status'] === 'available'): ?>
                         <p class="status available">Dostupné</p>
-                        <button class="btn">Požičať si</button>
+
+                        <?php if (isset($_SESSION['user_id'])): ?>
+                            <button class="btn" onclick="window.location.href='rent-device.php?id=<?php echo $device['id']; ?>'">Požičať si</button>
+                        <?php else: ?>
+                            <button class="btn" onclick="alert('Pre zapožičanie techniky sa musíte najskôr prihlásiť!'); window.location.href='login.php';">Požičať si</button>
+                        <?php endif; ?>
+
                     <?php else: ?>
                         <p class="status busy">Vypožičané</p>
                         <button class="btn" disabled>Nedostupné</button>

@@ -45,4 +45,19 @@ class Device {
             'status' => $status
         ]);
     }
+
+    // Funkcia na zapožičanie zariadenia používateľom
+    public function rent($deviceId, $userId) {
+        $stmt = $this->db->prepare("UPDATE devices SET status = 'busy', user_id = :user_id WHERE id = :id AND status = 'available'");
+        return $stmt->execute([
+            'id' => $deviceId,
+            'user_id' => $userId
+        ]);
+    }
+
+    // Funkcia na vrátenie zariadenia (admin uvoľní zariadenie)
+    public function returnDevice($deviceId) {
+        $stmt = $this->db->prepare("UPDATE devices SET status = 'available', user_id = NULL WHERE id = :id");
+        return $stmt->execute(['id' => $deviceId]);
+    }
 }

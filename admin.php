@@ -4,9 +4,9 @@ if (session_status() === PHP_SESSION_NONE) {
     session_start();
 }
 
-// Ochrana stránky: Ak používateľ NIE JE prihlásený, nepustíme ho sem a presmerujeme na login
-if (!isset($_SESSION['user_id'])) {
-    header("Location: login.php");
+// Ochrana: Ak nie je prihlásený ALEBO nie je admin, vyhodíme ho na index.php
+if (!isset($_SESSION['user_id']) || $_SESSION['role'] !== 'admin') {
+    header("Location: index.php");
     exit();
 }
 
@@ -37,6 +37,7 @@ $devices = $deviceModel->getAllDevices();
                 <li><a href="index.php">Domov</a></li>
                 <li><a href="admin.php">Správa techniky</a></li>
                 <li style="font-weight: 600; color: #2563eb;">Prihlásený: <?php echo htmlspecialchars($_SESSION['username']); ?></li>
+                <li><a href="logout.php" style="background: #ef4444; color: white; padding: 5px 12px; border-radius: 4px; text-decoration: none; font-weight: bold; font-size: 0.9rem;">Odhlásiť sa</a></li>
             </ul>
         </nav>
     </div>
@@ -75,6 +76,10 @@ $devices = $deviceModel->getAllDevices();
                         <?php endif; ?>
                     </td>
                     <td>
+                        <?php if ($device['status'] === 'busy'): ?>
+                            <a href="return-device.php?id=<?php echo $device['id']; ?>" class="btn-action edit" style="background-color: #10b981; color: white;">Vrátiť</a>
+                        <?php endif; ?>
+
                         <a href="edit-device.php?id=<?php echo $device['id']; ?>" class="btn-action edit">Upraviť</a>
                         <a href="delete-device.php?id=<?php echo $device['id']; ?>" class="btn-action delete" onclick="return confirm('Naozaj chcete vymazať toto zariadenie?')">Zmazať</a>
                     </td>
