@@ -13,9 +13,22 @@ if (!isset($_SESSION['user_id']) || $_SESSION['role'] !== 'admin') {
 require_once 'app/Database.php';
 require_once 'app/Device.php';
 
-// Načítame všetku techniku z databázy cez náš existujúci model
+
 $deviceModel = new Device();
 $devices = $deviceModel->getAllDevices();
+
+$db = Database::getInstance()->getConnection();
+
+$admin_stmt = $db->query("
+    SELECT u.username, d.name AS device_name, b.borrowed_at 
+    FROM borrowings b
+    JOIN users u ON b.user_id = u.id
+    JOIN devices d ON b.device_id = d.id
+    WHERE b.returned_at IS NULL
+    ORDER BY b.borrowed_at DESC
+");
+$all_borrowings = $admin_stmt->fetchAll(PDO::FETCH_ASSOC);
+
 ?>
 
 <!DOCTYPE html>
@@ -89,6 +102,36 @@ $devices = $deviceModel->getAllDevices();
         </tbody>
     </table>
 </main>
+
+<section class="admin-borrowings-section">
+    <div class="container">
+        <h2 class="section-title">Prehľad aktívnych výpožičiek</h2>
+        <table class="admin-table text-left">
+            <thead>
+            <tr>
+                <th>Používateľ (Kto)</th>
+                <th>Zariadenie (Čo)</th>
+                <th>Požičané dňa</th>
+            </tr>
+            </thead>
+            <tbody>
+            <?php if (empty($all_borrowings)): ?>
+                <tr>
+                    <td colspan="3" class="table-empty-msg">Momentálne nie sú v systéme žiadne aktívne výpožičky.</td>
+                </tr>
+            <?php else: ?>
+                <?php foreach ($all_borrowings as $b): ?>
+                    <tr>
+                        <td><strong><?php echo htmlspecialchars($b['username'], ENT_QUOTES, 'UTF-8'); ?></strong></td>
+                        <td><?php echo htmlspecialchars($b['device_name'], ENT_QUOTES, 'UTF-8'); ?></td>
+                        <td class="text-muted"><?php echo date('d.m.Y H:i', strtotime($b['borrowed_at'])); ?></td>
+                    </tr>
+                <?php endforeach; ?>
+            <?php endif; ?>
+            </tbody>
+        </table>
+    </div>
+</section>
 
 <footer>
     <div class="container">

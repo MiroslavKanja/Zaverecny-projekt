@@ -299,3 +299,31 @@ nav a + a {
 .header-btn-logout:hover {
     background: #fca5a5;
 }
+
+/* Štýly pre prehľad aktívnych výpožičiek v administrácii */
+.admin-borrowings-section {
+    margin-top: 40px;
+    margin-bottom: 40px;
+}
+
+.section-title {
+    color: #1e293b;
+    margin-bottom: 15px;
+    font-size: 1.5rem;
+}
+
+.text-left th, .text-left td {
+    text-align: left;
+    padding: 12px;
+}
+
+.text-muted {
+    color: #64748b;
+}
+
+.table-empty-msg {
+    padding: 20px !important;
+    text-align: center;
+    color: #64748b;
+    font-style: italic;
+}

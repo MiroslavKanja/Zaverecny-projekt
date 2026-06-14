@@ -49,15 +49,31 @@ class Device {
     // Funkcia na zapožičanie zariadenia používateľom
     public function rent($deviceId, $userId) {
         $stmt = $this->db->prepare("UPDATE devices SET status = 'busy', user_id = :user_id WHERE id = :id AND status = 'available'");
-        return $stmt->execute([
+        $result = $stmt->execute([
             'id' => $deviceId,
             'user_id' => $userId
         ]);
+
+        if ($result && $stmt->rowCount() > 0) {
+            $stmt_borrow = $this->db->prepare("INSERT INTO borrowings (user_id, device_id, borrowed_at) VALUES (:user_id, :device_id, NOW())");
+            $stmt_borrow->execute([
+                'user_id' => $userId,
+                'device_id' => $deviceId
+            ]);
+        }
+
+        return $result;
     }
 
-    // Funkcia na vrátenie zariadenia (admin uvoľní zariadenie)
     public function returnDevice($deviceId) {
         $stmt = $this->db->prepare("UPDATE devices SET status = 'available', user_id = NULL WHERE id = :id");
-        return $stmt->execute(['id' => $deviceId]);
+        $result = $stmt->execute(['id' => $deviceId]);
+
+        if ($result) {
+            $stmt_return = $this->db->prepare("UPDATE borrowings SET returned_at = NOW() WHERE device_id = :device_id AND returned_at IS NULL");
+            $stmt_return->execute(['device_id' => $deviceId]);
+        }
+
+        return $result;
     }
 }
